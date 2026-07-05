@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="game-container">
+        <div id="level-view">
+            <img id="level-background" src="" alt="Level background">
+            <div id="items-layer"></div>
+        </div>
+        <div id="sidebar">
+            <div id="inventory">
+                <h3>&#128230; Инвентарь</h3>
+                <div id="inventory-slots"></div>
+            </div>
+            <div id="game-log">
+                <h3>&#128172; События</h3>
+                <div id="log-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для кодового замка -->
+    <div id="lock-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>&#128274; Кодовый замок</h3>
+            <p>Введите 3-значный код:</p>
+            <div id="lock-display">_ _ _</div>
+            <div id="lock-keypad">
+                <button class="keypad-btn" data-num="1">1</button>
+                <button class="keypad-btn" data-num="2">2</button>
+                <button class="keypad-btn" data-num="3">3</button>
+                <button class="keypad-btn" data-num="4">4</button>
+                <button class="keypad-btn" data-num="5">5</button>
+                <button class="keypad-btn" data-num="6">6</button>
+                <button class="keypad-btn" data-num="7">7</button>
+                <button class="keypad-btn" data-num="8">8</button>
+                <button class="keypad-btn" data-num="9">9</button>
+                <button class="keypad-btn" data-num="0">0</button>
+                <button class="keypad-btn keypad-clear">C</button>
+                <button class="keypad-btn keypad-enter">&#10003;</button>
+            </div>
+            <button id="lock-close" class="modal-close">&#10006;</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно для сообщений -->
+    <div id="msg-modal" class="modal hidden">
+        <div class="modal-content msg-content">
+            <p id="msg-text"></p>
+            <button id="msg-close" class="modal-btn">OK</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>
