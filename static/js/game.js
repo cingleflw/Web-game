@@ -74,7 +74,8 @@ let gameState = {
     lockOpened: false,
     gameFinished: false,
     catIntroShown: false,
-    hamsterHappy: false
+    hamsterHappy: false,
+    consumedItems: []  // ID предметов, которые больше не должны появляться
 };
 
 const levelBg = document.getElementById('level-background');
@@ -192,9 +193,13 @@ function loadLevel(levelNum) {
 }
 
 function shouldShowItem(item) {
+    // Проверяем, был ли предмет уже использован/собран
+    if (gameState.consumedItems.includes(item.id)) return false;
+    // Специальные состояния
     if (item.id === 'pig' && gameState.pigSmashed) return false;
     if (item.id === 'monkey' && gameState.monkeyPaid) return false;
     if (item.id === 'muscase' && gameState.lockOpened) return false;
+    if (item.id === 'plush' && gameState.gameFinished) return false;
     return true;
 }
 
@@ -344,6 +349,7 @@ function takeItem(item, element) {
             consumable: item.consumable || false,
             consumedOnUse: item.consumedOnUse || false
         });
+        gameState.consumedItems.push(item.id);
         element.remove();
         updateInventory();
         log('Вы подобрали: ' + getItemName(item.id));
@@ -358,6 +364,7 @@ function useItemOn(targetItem, usedItem, element) {
 
     if (targetItem.id === 'pig') {
         gameState.pigSmashed = true;
+        gameState.consumedItems.push('pig');
         element.classList.add('collecting');
         setTimeout(() => {
             element.remove();
@@ -369,6 +376,7 @@ function useItemOn(targetItem, usedItem, element) {
 
     if (targetItem.id === 'chest') {
         gameState.chestOpen = true;
+        gameState.consumedItems.push('chest');
         showMessage(targetItem.resultMessage || 'Сундук открыт!');
         log('Сундук открыт ключом. Внутри игрушка!');
         setTimeout(() => loadLevel(currentLevel), 800);
@@ -378,6 +386,7 @@ function useItemOn(targetItem, usedItem, element) {
     if (targetItem.id === 'bass') {
         gameState.bassActivated = true;
         gameState.hamsterHappy = true;
+        gameState.consumedItems.push('disk');  // диск использован
         showMessage(targetItem.resultMessage || 'Музыка заиграла!');
         log('Музыкальный центр включен. Появился чемоданчик!');
         const hamsterThought = document.getElementById('thought-hamster');
@@ -393,6 +402,8 @@ function useItemOn(targetItem, usedItem, element) {
 
     if (targetItem.id === 'monkey') {
         gameState.monkeyPaid = true;
+        gameState.consumedItems.push('monkey');
+        gameState.consumedItems.push('money');  // деньги потрачены
         element.classList.add('collecting');
         setTimeout(() => {
             element.remove();
@@ -414,12 +425,16 @@ function useItem(item, element) {
     if (item.consumable) {
         showMessage(item.useMessage || 'Предмет использован.');
         const idx = inventory.findIndex(i => i.id === item.id);
-        if (idx >= 0) removeFromInventory(idx);
+        if (idx >= 0) {
+            gameState.consumedItems.push(item.id);
+            removeFromInventory(idx);
+        }
     }
 }
 
 function finishGame(plushElement) {
     gameState.gameFinished = true;
+    gameState.consumedItems.push('plush');
     plushElement.classList.add('collecting');
     setTimeout(() => {
         plushElement.remove();
@@ -536,6 +551,7 @@ function updateLockDisplay() {
 function checkLockCode() {
     if (lockInput === LOCK_CODE) {
         gameState.lockOpened = true;
+        gameState.consumedItems.push('muscase');
         closeLockModal();
         showMessage('Код верный! Замок открыт. Вы получили ключ.');
         giveItem('key', 'key.png');
