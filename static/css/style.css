@@ -40,7 +40,7 @@ body {
 .item-wrapper:hover { transform: scale(1.15); }
 .item-wrapper:hover .item-glow { opacity: 1; filter: blur(8px); }
 
-.item-img { width: 60px; height: auto; display: block; position: relative; z-index: 2;
+.item-img { width: 80px; height: auto; display: block; position: relative; z-index: 2;
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4)); }
 
 .item-glow {
@@ -63,11 +63,11 @@ body {
     position: absolute; pointer-events: none;
     z-index: 25; transform: translate(-50%, -50%);
 }
-.cat-img { width: 50px; height: auto; display: block;
+.cat-img { width: 100px; height: auto; display: block;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
 
 .plush-beside-cat {
-    position: absolute; width: 40px; height: auto;
+    position: absolute; width: 80px; height: auto;
     right: -35px; top: 0;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     animation: bounceIn 0.6s ease;

@@ -1,63 +1,138 @@
-// ============================================
-// Web Game — Только клавиатурная навигация
-// ============================================
-
 const LEVELS_CONFIG = {
+    // ==================== УРОВЕНЬ 1 ====================
+    // 1 предмет: pig (красная точка)
     1: {
         background: '/levels/level_1.jpg',
         items: [
-            { id: 'pig', file: 'pig.png', x: 10.9, y: 53.7, color: 'red',
-              canTake: false, canUse: true, useItem: 'hammer',
-              resultItem: 'money', resultMessage: 'Вы разбили копилку и нашли деньги!' }
+            {
+                id: 'pig',
+                file: 'pig.png',
+                x: 12,      // ← измените координату X
+                y: 67,      // ← измените координату Y
+                color: 'red',
+                canTake: false,
+                canUse: true,
+                useItem: 'hammer',
+                resultItem: 'money',
+                resultMessage: 'Вы разбили копилку и нашли деньги!'
+            }
         ],
-        cat: { x: 50, y: 88 }
+        cat: { x: 80, y: 58 }
     },
+
+    // ==================== УРОВЕНЬ 2 ====================
+    // 2 предмета: coffee (красная), hammer (фиолетовая)
     2: {
         background: '/levels/level_2.jpg',
         items: [
-            { id: 'coffee', file: 'coffee.png', x: 24.6, y: 39.7, color: 'red',
-              canTake: true, canUse: false, consumable: true,
-              useMessage: 'Вы выпили кофе. Бодрость восстановлена!' },
-            { id: 'hammer', file: 'hammer.png', x: 73.9, y: 17.8, color: 'purple',
-              canTake: true, canUse: true, consumedOnUse: true }
+            {
+                id: 'coffee',
+                file: 'coffee.png',
+                x: 28,      // ← измените координату X
+                y: 50,      // ← измените координату Y
+                color: 'red',
+                canTake: true,
+                canUse: false,
+                consumable: true,
+                useMessage: 'Вы выпили кофе. Бодрость восстановлена!'
+            },
+            {
+                id: 'hammer',
+                file: 'hammer.png',
+                x: 80,      // ← измените координату X
+                y: 20,      // ← измените координату Y
+                color: 'purple',
+                canTake: true,
+                canUse: true,
+                consumedOnUse: true
+            }
         ],
         cat: { x: 50, y: 88 }
     },
+
+    // ==================== УРОВЕНЬ 3 ====================
+    // 1 предмет: chest (красная точка)
     3: {
         background: '/levels/level_3.jpg',
         items: [
-            { id: 'chest', file: 'chest.png', x: 74.1, y: 64.5, color: 'red',
-              canTake: false, canUse: true, useItem: 'key',
-              resultMessage: 'Вы открыли сундук ключом!' }
+            {
+                id: 'chest',
+                file: 'chest.png',
+                x: 75,      // ← измените координату X
+                y: 82,      // ← измените координату Y
+                color: 'red',
+                canTake: false,
+                canUse: true,
+                useItem: 'key',
+                resultMessage: 'Вы открыли сундук ключом!'
+            }
         ],
-        cat: { x: 50, y: 88 }
+        cat: { x: 65, y: 80 }
     },
+
+    // ==================== УРОВЕНЬ 4 ====================
+    // 3 предмета: hamster (красная), bass (фиолетовая), muscase (появляется после)
     4: {
         background: '/levels/level_4.jpg',
         items: [
-            { id: 'hamster', file: 'hamster.png', x: 77.4, y: 55.8, color: 'red',
-              canTake: false, canUse: false,
-              thought: 'хочу слушать музыку :( ',
-              thoughtAfter: 'тун-ту-туу',
-              afterItem: 'disk' },
-            { id: 'bass', file: 'bass.png', x: 82.8, y: 56.3, color: 'purple',
-              canTake: false, canUse: true, useItem: 'disk',
-              resultItem: 'muscase', resultMessage: 'Вы включили музыку! Появился чемоданчик.' }
+            {
+                id: 'hamster',
+                file: 'hamster.png',
+                x: 77,      // ← измените координату X
+                y: 73,      // ← измените координату Y
+                color: 'red',
+                canTake: false,
+                canUse: false,
+                thought: 'хочу слушать музыку :( ',
+                thoughtAfter: 'тун-ту-туу',
+                afterItem: 'disk'
+            },
+            {
+                id: 'bass',
+                file: 'bass.png',
+                x: 84,      // ← измените координату X
+                y: 73,      // ← измените координату Y
+                color: 'purple',
+                canTake: false,
+                canUse: true,
+                useItem: 'disk',
+                resultItem: 'muscase',
+                resultMessage: 'Вы включили музыку! Появился чемоданчик.'
+            }
+            // muscase появляется динамически после bass
         ],
-        cat: { x: 50, y: 88 }
+        cat: { x: 25, y: 67 },
+        // Координаты muscase (появляется после использования диска):
+        muscase: { x: 35, y: 73 }
     },
+
+    // ==================== УРОВЕНЬ 5 ====================
+    // 1 предмет: monkey (красная точка)
     5: {
         background: '/levels/level_5.jpg',
         items: [
-            { id: 'monkey', file: 'monkey.png', x: 34.2, y: 50.0, color: 'red',
-              canTake: false, canUse: true, useItem: 'money',
-              thought: 'для покупки нужны деньги или бананы',
-              thoughtAfter: 'хорошего дня!',
-              resultItem: 'disk', resultMessage: 'Обезьяна обменяла деньги на диск!' }
+            {
+                id: 'monkey',
+                file: 'monkey.png',
+                x: 32,      // ← измените координату X
+                y: 75,      // ← измените координату Y
+                color: 'red',
+                canTake: false,
+                canUse: true,
+                useItem: 'money',
+                thought: 'для покупки нужны деньги или бананы',
+                thoughtAfter: 'хорошего дня!',
+                resultItem: 'disk',
+                resultMessage: 'Обезьяна обменяла деньги на диск!'
+            }
         ],
-        cat: { x: 50, y: 88 }
+        cat: { x: 42, y: 75 }
     }
 };
+
+// ============================================
+// игровая логика, не менять
+// ============================================
 
 const TOTAL_LEVELS = 5;
 const INVENTORY_SIZE = 9;
@@ -75,7 +150,7 @@ let gameState = {
     gameFinished: false,
     catIntroShown: false,
     hamsterHappy: false,
-    consumedItems: []  // ID предметов, которые больше не должны появляться
+    consumedItems: []
 };
 
 const levelBg = document.getElementById('level-background');
@@ -100,9 +175,8 @@ function init() {
     setupKeyboard();
 
     log('Игра началась! Найдите предметы и решите загадки.');
-    log('Используйте стрелки ← → на клавиатуре для перемещения между уровнями.');
+    log('Стрелки ← → — перемещение между уровнями.');
 
-    // Cat intro
     if (!gameState.catIntroShown) {
         setTimeout(() => {
             showCatThought('мне нужен друг');
@@ -112,13 +186,11 @@ function init() {
 }
 
 // ============================================
-// Клавиатура — единственный способ навигации
+// Клавиатура
 // ============================================
 function setupKeyboard() {
     document.addEventListener('keydown', (e) => {
-        // Если открыто модальное окно — не переключаем уровни
         if (!lockModal.classList.contains('hidden')) {
-            // Ввод цифр в замок с клавиатуры
             if (e.key >= '0' && e.key <= '9') {
                 if (lockInput.length < 3) {
                     lockInput += e.key;
@@ -132,7 +204,6 @@ function setupKeyboard() {
             return;
         }
 
-        // Навигация между уровнями
         if (e.key === 'ArrowLeft') {
             e.preventDefault();
             navigate(-1);
@@ -159,32 +230,44 @@ function loadLevel(levelNum) {
 
     itemsLayer.innerHTML = '';
 
-    // Предметы уровня
+    // Основные предметы уровня
     config.items.forEach(item => {
         if (shouldShowItem(item)) {
             itemsLayer.appendChild(createItemElement(item));
         }
     });
 
-    // muscase появляется после bass
+    // muscase — появляется после bass (динамический предмет)
     if (levelNum === 4 && gameState.bassActivated && !gameState.lockOpened) {
         const muscase = {
-            id: 'muscase', file: 'muscase.png', x: 82.8, y: 35.0, color: 'purple',
-            canTake: false, canUse: true, isLock: true
+            id: 'muscase',
+            file: 'muscase.png',
+            x: config.muscase.x,    // ← берётся из конфига уровня 4
+            y: config.muscase.y,
+            color: 'purple',
+            canTake: false,
+            canUse: true,
+            isLock: true
         };
         itemsLayer.appendChild(createItemElement(muscase));
     }
 
-    // plush появляется после открытия сундука
+    // plush — появляется после открытия сундука
     if (levelNum === 3 && gameState.chestOpen && !gameState.gameFinished) {
         const plush = {
-            id: 'plush', file: 'plush.png', x: 74.1, y: 64.5, color: 'red',
-            canTake: false, canUse: false, isPlush: true
+            id: 'plush',
+            file: 'plush.png',
+            x: 74.1,   // ← координата plush (рядом с сундуком)
+            y: 64.5,
+            color: 'red',
+            canTake: false,
+            canUse: false,
+            isPlush: true
         };
         itemsLayer.appendChild(createItemElement(plush));
     }
 
-    // Cat
+    // Кот
     if (config.cat) {
         itemsLayer.appendChild(createCatElement(config.cat));
     }
@@ -193,9 +276,7 @@ function loadLevel(levelNum) {
 }
 
 function shouldShowItem(item) {
-    // Проверяем, был ли предмет уже использован/собран
     if (gameState.consumedItems.includes(item.id)) return false;
-    // Специальные состояния
     if (item.id === 'pig' && gameState.pigSmashed) return false;
     if (item.id === 'monkey' && gameState.monkeyPaid) return false;
     if (item.id === 'muscase' && gameState.lockOpened) return false;
@@ -225,16 +306,13 @@ function createItemElement(item) {
     img.draggable = false;
     wrapper.appendChild(img);
 
-    // Облако мысли
     if (item.thought) {
         const thought = document.createElement('div');
         thought.className = 'thought-bubble';
         thought.id = 'thought-' + item.id;
-
         const currentThought = (item.id === 'hamster' && gameState.hamsterHappy) ? item.thoughtAfter :
                                (item.id === 'monkey' && gameState.monkeyPaid) ? item.thoughtAfter :
                                item.thought;
-
         thought.innerHTML = '<span class="thought-text">' + currentThought + '</span>';
         wrapper.appendChild(thought);
     }
@@ -262,7 +340,6 @@ function createCatElement(pos) {
     img.draggable = false;
     wrapper.appendChild(img);
 
-    // Облако мысли cat
     const thought = document.createElement('div');
     thought.className = 'thought-bubble cat-thought';
     thought.id = 'cat-thought';
@@ -270,7 +347,6 @@ function createCatElement(pos) {
     thought.innerHTML = '<span class="thought-text"></span>';
     wrapper.appendChild(thought);
 
-    // plush рядом с cat в конце игры
     if (gameState.gameFinished) {
         const plush = document.createElement('img');
         plush.src = '/static/items/plush.png';
@@ -386,7 +462,7 @@ function useItemOn(targetItem, usedItem, element) {
     if (targetItem.id === 'bass') {
         gameState.bassActivated = true;
         gameState.hamsterHappy = true;
-        gameState.consumedItems.push('disk');  // диск использован
+        gameState.consumedItems.push('disk');
         showMessage(targetItem.resultMessage || 'Музыка заиграла!');
         log('Музыкальный центр включен. Появился чемоданчик!');
         const hamsterThought = document.getElementById('thought-hamster');
@@ -403,7 +479,7 @@ function useItemOn(targetItem, usedItem, element) {
     if (targetItem.id === 'monkey') {
         gameState.monkeyPaid = true;
         gameState.consumedItems.push('monkey');
-        gameState.consumedItems.push('money');  // деньги потрачены
+        gameState.consumedItems.push('money');
         element.classList.add('collecting');
         setTimeout(() => {
             element.remove();
@@ -582,7 +658,7 @@ function log(message) {
 }
 
 // ============================================
-// Навигация — только клавиатура
+// Навигация
 // ============================================
 function navigate(direction) {
     const newLevel = currentLevel + direction;
